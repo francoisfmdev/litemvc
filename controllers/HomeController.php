@@ -1,24 +1,24 @@
 <?php
+
 namespace Controllers;
 
-class HomeController extends Controller{
+use PDO;
 
-    public function __construct(){
-        parent::__construct();
-       
-         
+class HomeController extends Controller
+{
+    public function __construct(PDO $database)
+    {
+        parent::__construct($database);
     }
 
-    public function index(){
+    public function index()
+    {
         $data = [
-            "title"=>"Notre super page",
-            "h1"=>"Welcome to my page",
-            "content"=>"Juste un peu de texte pour voir "
+            "title" => "Page d'accueil",
+            "h1" => "Bienvenue",
+            "content" => "Ceci est la page d'accueil.",
         ];
-        $this->render( "home.html.twig",$data );
-    }
-    public function contact(){
 
+        $this->render("home.html.twig", $data);
     }
-    
 }

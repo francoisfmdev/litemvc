@@ -1,30 +1,26 @@
 <?php
+
 namespace Controllers;
 
+use PDO;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Database;
 
 class Controller
 {
-    protected $twig;
-    protected $db;
+    protected Environment $twig;
+    protected PDO $db;
 
-    public function __construct(Database $database)
+    public function __construct(PDO $database)
     {
-        try {
-            // Injection de la base de données
-            $this->db = $database::getInstance();
+        $this->db = $database;
 
-            // Initialisation de Twig
-            $loader = new FilesystemLoader(__DIR__ . '/../views');
-            $this->twig = new Environment($loader, [
-                'debug' => true, // Active le mode debug
-                'cache' => false, // Désactive le cache pendant le développement
-            ]);
-        } catch (\Exception $e) {
-            echo "Error initializing Twig or Database: " . $e->getMessage();
-        }
+        // Initialisation de Twig
+        $loader = new FilesystemLoader(__DIR__ . '/../views');
+        $this->twig = new Environment($loader, [
+            'debug' => true, // Active le mode debug
+            'cache' => false, // Désactive le cache pendant le développement
+        ]);
     }
 
     public function render(string $template, array $data = [])

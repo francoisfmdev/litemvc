@@ -3,6 +3,7 @@
 require 'vendor/autoload.php';
 
 use Controllers\HomeController;
+use Database\Database;
 
 // Créer une instance du routeur
 $router = new AltoRouter();
@@ -10,11 +11,14 @@ $router = new AltoRouter();
 // Définir le chemin de base
 $router->setBasePath('/lightmvc');
 
+
+
+
 // Définir les routes
 $router->map('GET', '/', function () {
     
-    
-    $homeController = new HomeController();
+    $db = Database::getInstance();
+    $homeController = new HomeController($db);
     //var_dump($homeController); // Débogage pour voir si $twig est initialisé
     $homeController->index();
 });

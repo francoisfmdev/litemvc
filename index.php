@@ -3,6 +3,7 @@ session_start();
 require 'vendor/autoload.php';
 
 use Controllers\HomeController;
+use Controllers\UserController;
 use Database\Database;
 
 // Créer une instance du routeur
@@ -19,8 +20,19 @@ $router->map('GET', '/', function () {
     
     $db = Database::getInstance();
     $homeController = new HomeController($db);
-    //var_dump($homeController); // Débogage pour voir si $twig est initialisé
     $homeController->index();
+});
+$router->map('GET', '/inscription', function () {
+    
+    $db = Database::getInstance();
+    $userController = new UserController($db);
+    $userController->inscription();
+});
+$router->map('GET', '/connection', function () {
+    
+    $db = Database::getInstance();
+    $userController = new UserController($db);
+    $userController->index();
 });
 
 // Matcher et gérer la requête
